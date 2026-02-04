@@ -1,0 +1,576 @@
+description,department,priority
+"Water pipe leakage in my street",Water Supply,High
+"No drinking water in my area",Water Supply,High
+"Street lights not working",Electricity,Medium
+"Power outage for 5 hours",Electricity,High
+"Road potholes on main road",Roads & Infrastructure,Medium
+"Traffic signal not functioning",Traffic,High
+"Garbage not collected for 2 weeks",Sanitation,Medium
+"Street cleaning not happening",Sanitation,Low
+"Clinic closed during working hours",Health,Medium
+"Lack of medicine at government hospital",Health,High
+"School building maintenance required",Education,Medium
+"Teacher absent for 3 days",Education,Low
+"Traffic police not regulating rush hour",Traffic,Medium
+"Robbery reported in neighborhood",Public Safety / Police,High
+"Illegal encroachment on road",Public Safety / Police,Medium
+"Contaminated water supply in our locality",Water Supply,High
+"Water tank overflow causing property damage",Water Supply,Medium
+"Low water pressure during peak hours",Water Supply,Medium
+"Broken water meter not reading correctly",Water Supply,Low
+"Water line burst near school",Water Supply,High
+"Dirty water coming from taps",Water Supply,High
+"Water shortage for past 3 days",Water Supply,High
+"Municipal water connection not working",Water Supply,High
+"Sewage mixing with drinking water",Water Supply,High
+"Water bill incorrect for last month",Water Supply,Low
+"Need new water connection for house",Water Supply,Low
+"Underground water pipe making noise",Water Supply,Medium
+"Water wastage from broken public tap",Water Supply,Medium
+"No water supply on weekends",Water Supply,High
+"Rusty water from overhead tank",Water Supply,Medium
+"Water pump not functioning properly",Water Supply,Medium
+"Illegal water connection in neighborhood",Water Supply,Medium
+"Water tanker not coming as scheduled",Water Supply,High
+"Leaking water main flooding street",Water Supply,High
+"Water pressure too high damaging pipes",Water Supply,Medium
+"Public hand pump broken",Water Supply,Medium
+"Water connection cut without notice",Water Supply,High
+"Uneven water distribution in area",Water Supply,Medium
+"Water logging due to pipe leakage",Water Supply,Medium
+"Need water pipeline extension",Water Supply,Low
+"Frequent power cuts in locality",Electricity,High
+"Transformer sparking dangerously",Electricity,High
+"Street light poles damaged",Electricity,Medium
+"Electricity meter faulty reading",Electricity,Medium
+"No power for 12 hours",Electricity,High
+"Electric pole leaning dangerously",Electricity,High
+"Exposed electrical wires on road",Electricity,High
+"Power fluctuation damaging appliances",Electricity,High
+"Electricity bill too high unexpectedly",Electricity,Medium
+"Need new electricity connection",Electricity,Low
+"Power cut during exam season",Electricity,High
+"Street lights on during daytime",Electricity,Low
+"Illegal electricity theft in building",Electricity,Medium
+"Transformer leaking oil",Electricity,High
+"Electric shock from public pole",Electricity,High
+"Unscheduled power maintenance",Electricity,Medium
+"Power backup not working",Electricity,Medium
+"Overhead cables hanging low",Electricity,High
+"Junction box open and exposed",Electricity,High
+"Voltage fluctuation issues",Electricity,Medium
+"Need additional street lights",Electricity,Medium
+"Power line fallen on road",Electricity,High
+"Electricity supply interrupted frequently",Electricity,High
+"Smart meter not installed yet",Electricity,Low
+"Street light bulbs need replacement",Electricity,Low
+"Power outage affecting business",Electricity,High
+"Electric pole blocking pathway",Electricity,Medium
+"Underground cable fault",Electricity,High
+"Load shedding without notice",Electricity,High
+"Electricity department not responding",Electricity,Medium
+"Public park lights not working",Electricity,Medium
+"Traffic lights flickering",Electricity,Medium
+"Electric meter box damaged",Electricity,Medium
+"Power supply unstable in area",Electricity,High
+"Need solar street lights",Electricity,Low
+"Transformer noise disturbing residents",Electricity,Medium
+"Electricity connection delayed",Electricity,Medium
+"Prepaid meter not accepting recharge",Electricity,High
+"Power theft reported",Electricity,Medium
+"Electric cable stolen from pole",Electricity,High
+"Deep potholes on service road",Roads & Infrastructure,High
+"Road completely damaged",Roads & Infrastructure,High
+"Manhole cover missing on highway",Roads & Infrastructure,High
+"Road construction incomplete for months",Roads & Infrastructure,Medium
+"Speed breakers needed urgently",Roads & Infrastructure,Medium
+"Footpath encroached by vendors",Roads & Infrastructure,Medium
+"Bridge railing broken",Roads & Infrastructure,High
+"Road width reduced illegally",Roads & Infrastructure,Medium
+"Pavement tiles broken",Roads & Infrastructure,Low
+"No pedestrian crossing available",Roads & Infrastructure,Medium
+"Road divider damaged",Roads & Infrastructure,Medium
+"Unmarked speed breakers dangerous",Roads & Infrastructure,High
+"Road flooding during rain",Roads & Infrastructure,High
+"Uneven road surface",Roads & Infrastructure,Medium
+"Missing road signage",Roads & Infrastructure,Medium
+"Footpath too narrow",Roads & Infrastructure,Low
+"Pothole filled with dirty water",Roads & Infrastructure,High
+"Road cave in near my house",Roads & Infrastructure,High
+"Construction debris on road",Roads & Infrastructure,Medium
+"No bus stop shelter",Roads & Infrastructure,Low
+"Road repair work abandoned",Roads & Infrastructure,Medium
+"Drainage cover broken on road",Roads & Infrastructure,High
+"Zebra crossing faded",Roads & Infrastructure,Low
+"Road accident prone area unmarked",Roads & Infrastructure,High
+"Culvert damaged",Roads & Infrastructure,High
+"Road tar melting in summer",Roads & Infrastructure,Medium
+"Gravel road needs paving",Roads & Infrastructure,Medium
+"Road width inadequate for traffic",Roads & Infrastructure,Medium
+"Bike lane missing",Roads & Infrastructure,Low
+"Road slope causing water stagnation",Roads & Infrastructure,Medium
+"Flyover leaking water",Roads & Infrastructure,Medium
+"Underground passage flooded",Roads & Infrastructure,High
+"Road median encroached",Roads & Infrastructure,Medium
+"Speed limit signs missing",Roads & Infrastructure,Medium
+"School zone marking not visible",Roads & Infrastructure,High
+"Road hump too high",Roads & Infrastructure,Medium
+"Blind curve without warning sign",Roads & Infrastructure,High
+"Footbridge stairs broken",Roads & Infrastructure,High
+"Road shoulder eroded",Roads & Infrastructure,Medium
+"Rumble strips needed on highway",Roads & Infrastructure,Medium
+"Traffic signal malfunctioning at intersection",Traffic,High
+"Heavy traffic jam daily",Traffic,Medium
+"No traffic police during peak hours",Traffic,High
+"Illegal parking blocking road",Traffic,Medium
+"Traffic rules not enforced",Traffic,Medium
+"Need traffic signal at busy crossing",Traffic,High
+"One way road sign missing",Traffic,Medium
+"Vehicles driving on wrong side",Traffic,Medium
+"No parking signs ignored",Traffic,Low
+"Traffic congestion near market",Traffic,Medium
+"Speeding vehicles in residential area",Traffic,High
+"No stop sign at intersection",Traffic,Medium
+"Traffic warden absent",Traffic,Medium
+"Pedestrians crossing dangerously",Traffic,Medium
+"Traffic light stuck on red",Traffic,High
+"Lane discipline not maintained",Traffic,Low
+"Heavy vehicles in prohibited zone",Traffic,Medium
+"Traffic mirror needed at blind spot",Traffic,Medium
+"School zone speed limit violated",Traffic,High
+"Traffic light timing inappropriate",Traffic,Medium
+"Roundabout rules not followed",Traffic,Medium
+"Auto rickshaws blocking traffic",Traffic,Medium
+"Bus stop causing traffic holdup",Traffic,Medium
+"Traffic bottleneck at bridge",Traffic,High
+"No traffic diversion signs",Traffic,Medium
+"Road rage incident frequent",Traffic,Medium
+"Honking nuisance in residential area",Traffic,Low
+"U-turn spot dangerous",Traffic,High
+"Traffic camera not working",Traffic,Low
+"Motorcycle riding on footpath",Traffic,Medium
+"Public transport overcrowding",Traffic,Medium
+"Drunk driving incidents increasing",Traffic,High
+"Helmet rule not enforced",Traffic,Medium
+"Triple riding on motorcycles",Traffic,Medium
+"Traffic police booth unmanned",Traffic,Medium
+"Parking lot full always",Traffic,Low
+"Accident black spot area",Traffic,High
+"Traffic snarl during events",Traffic,Medium
+"No U-turn board missing",Traffic,Medium
+"Toll plaza causing delays",Traffic,Medium
+"Garbage bins overflowing",Sanitation,Medium
+"Stray dogs in garbage dump",Sanitation,Medium
+"Garbage truck not coming regularly",Sanitation,High
+"Open garbage burning",Sanitation,High
+"Littering on main road",Sanitation,Medium
+"Public toilet not maintained",Sanitation,High
+"Drain choked with garbage",Sanitation,High
+"Garbage dump near residential area",Sanitation,High
+"No dustbins on street",Sanitation,Medium
+"Waste segregation not happening",Sanitation,Low
+"Foul smell from garbage",Sanitation,High
+"Plastic waste everywhere",Sanitation,Medium
+"Garbage collection timing inconvenient",Sanitation,Low
+"Sweeper not cleaning street daily",Sanitation,Medium
+"Public urination problem",Sanitation,Medium
+"Sanitation worker strike",Sanitation,High
+"Garbage van broken down",Sanitation,Medium
+"Medical waste mixed with regular trash",Sanitation,High
+"Construction waste dumped illegally",Sanitation,Medium
+"Dead animal on road",Sanitation,High
+"Compost pit not maintained",Sanitation,Low
+"Recycling bins not available",Sanitation,Low
+"Garbage on beach area",Sanitation,High
+"Public toilet locked",Sanitation,Medium
+"Sanitation workers rude behavior",Sanitation,Low
+"Need more garbage bins",Sanitation,Medium
+"E-waste dumped in open",Sanitation,Medium
+"Garbage dumped in park",Sanitation,High
+"Drain cleaning required",Sanitation,High
+"Litter on footpath",Sanitation,Medium
+"Public spitting everywhere",Sanitation,Low
+"Garbage collection charges too high",Sanitation,Low
+"Sanitary napkin disposal issue",Sanitation,Medium
+"Restaurant waste on street",Sanitation,Medium
+"Garbage affecting tourism",Sanitation,Medium
+"Slum sanitation poor",Sanitation,High
+"Market area very dirty",Sanitation,High
+"Garbage in children's park",Sanitation,High
+"Street sweeping machine needed",Sanitation,Low
+"Garbage creating mosquito breeding",Sanitation,High
+"Doctor not available at health center",Health,High
+"Ambulance service very slow",Health,High
+"Hospital equipment not working",Health,High
+"No beds available in government hospital",Health,High
+"Vaccination drive not conducted",Health,Medium
+"Medical staff shortage",Health,High
+"Pharmacy closed at hospital",Health,Medium
+"Long waiting time at OPD",Health,Medium
+"Dirty conditions in hospital ward",Health,High
+"Nurse rude behavior",Health,Medium
+"Blood bank running low",Health,High
+"X-ray machine broken",Health,High
+"No emergency services at night",Health,High
+"Dialysis unit not functioning",Health,High
+"Free medicine scheme not implemented",Health,Medium
+"Health checkup camp cancelled",Health,Low
+"Mosquito fogging not done",Health,Medium
+"TB clinic not operational",Health,High
+"Maternity ward unhygienic",Health,High
+"No pediatrician available",Health,High
+"Health insurance scheme issue",Health,Medium
+"Drinking water not available in hospital",Health,Medium
+"Hospital canteen unhygienic",Health,Medium
+"Physiotherapy center closed",Health,Medium
+"Mental health facility lacking",Health,Medium
+"Ambulance driver unprofessional",Health,High
+"Hospital charging unofficially",Health,High
+"Medical records lost",Health,Medium
+"No handicap accessibility",Health,Medium
+"Immunization schedule not followed",Health,High
+"Ayush center not staffed",Health,Low
+"Health awareness program needed",Health,Low
+"COVID testing facility closed",Health,Medium
+"Oxygen supply shortage",Health,High
+"Pathology lab giving wrong reports",Health,High
+"HIV testing center far away",Health,Medium
+"Disease outbreak in locality",Health,High
+"Hospital waste disposal improper",Health,High
+"No specialist doctor available",Health,High
+"Medical equipment outdated",Health,Medium
+"Blood pressure monitoring camp needed",Health,Low
+"School toilets not clean",Education,Medium
+"Classrooms overcrowded",Education,Medium
+"No drinking water in school",Education,High
+"School building needs repair",Education,Medium
+"Playground not maintained",Education,Low
+"School bus service irregular",Education,Medium
+"Textbooks not distributed on time",Education,Medium
+"No library facility in school",Education,Low
+"Computer lab not functional",Education,Medium
+"School furniture broken",Education,Medium
+"Teacher quality poor",Education,Medium
+"Midday meal quality bad",Education,High
+"School gate security lacking",Education,High
+"No science laboratory",Education,Medium
+"School fees too high",Education,Low
+"Scholarship not received",Education,Medium
+"School timing inconvenient",Education,Low
+"No sports equipment",Education,Low
+"Electricity not working in school",Education,High
+"School compound wall broken",Education,Medium
+"No fans in classroom",Education,Medium
+"Blackboard not visible",Education,Low
+"School admission process complicated",Education,Medium
+"No special education facility",Education,Medium
+"School dropout rate high",Education,Medium
+"Exam schedule not announced",Education,Medium
+"Result declaration delayed",Education,Low
+"Teacher student ratio very high",Education,Medium
+"No vocational training",Education,Low
+"School cleanliness poor",Education,Medium
+"Bullying incidents not addressed",Education,High
+"No parent teacher meetings",Education,Low
+"School uniform compulsion issue",Education,Low
+"Transportation facility needed",Education,Medium
+"No first aid facility",Education,Medium
+"School canteen unhygienic",Education,Medium
+"Discrimination in school",Education,High
+"Corporal punishment reported",Education,High
+"No activity classes",Education,Low
+"School infrastructure inadequate",Education,Medium
+"Chain snatching in area",Public Safety / Police,High
+"Police station far from locality",Public Safety / Police,Medium
+"Police not patrolling at night",Public Safety / Police,High
+"Domestic violence case not registered",Public Safety / Police,High
+"Street crime increasing",Public Safety / Police,High
+"Police response time very slow",Public Safety / Police,High
+"FIR not registered by police",Public Safety / Police,High
+"Drug peddling in neighborhood",Public Safety / Police,High
+"Eve teasing incidents frequent",Public Safety / Police,High
+"Burglary in residential area",Public Safety / Police,High
+"Police personnel behavior rude",Public Safety / Police,Medium
+"No women police station nearby",Public Safety / Police,Medium
+"CCTV cameras not working",Public Safety / Police,High
+"Gambling den operating openly",Public Safety / Police,High
+"Illegal liquor sale",Public Safety / Police,High
+"Prostitution racket in area",Public Safety / Police,High
+"Police asking for bribe",Public Safety / Police,High
+"Missing person complaint ignored",Public Safety / Police,High
+"Cyber crime complaint pending",Public Safety / Police,Medium
+"Road encroachment by shop",Public Safety / Police,Medium
+"Noise pollution from bar",Public Safety / Police,Medium
+"Illegal construction in progress",Public Safety / Police,Medium
+"Traffic police harassment",Public Safety / Police,Medium
+"Mob violence incident",Public Safety / Police,High
+"Child labor in factory",Public Safety / Police,High
+"Unauthorized loudspeaker use",Public Safety / Police,Low
+"Animal cruelty case",Public Safety / Police,Medium
+"Land grabbing attempt",Public Safety / Police,High
+"Fake police officer impersonation",Public Safety / Police,High
+"Police station understaffed",Public Safety / Police,Medium
+"No emergency helpline response",Public Safety / Police,High
+"Communal tension in area",Public Safety / Police,High
+"Organized crime activity",Public Safety / Police,High
+"Human trafficking suspected",Public Safety / Police,High
+"Illegal mining activity",Public Safety / Police,High
+"Forest encroachment",Public Safety / Police,Medium
+"Wildlife poaching",Public Safety / Police,High
+"Illegal weapon possession",Public Safety / Police,High
+"Counterfeit currency circulation",Public Safety / Police,High
+"Identity theft case",Public Safety / Police,High
+"Water contamination at source",Water Supply,High
+"Illegal bore well in neighborhood",Water Supply,Medium
+"Water theft from main line",Water Supply,Medium
+"Public tap always dry",Water Supply,High
+"Water quality testing not done",Water Supply,Medium
+"Overhead tank leaking badly",Water Supply,Medium
+"Water supply timing not fixed",Water Supply,Medium
+"Need water purification plant",Water Supply,High
+"Rainwater harvesting not implemented",Water Supply,Low
+"Water connection approval delayed",Water Supply,Medium
+"Meter reading incorrect",Water Supply,Low
+"Water pipeline too old",Water Supply,Medium
+"No water during summer months",Water Supply,High
+"Water board office not accessible",Water Supply,Low
+"Tanker water quality poor",Water Supply,High
+"Community tap broken",Water Supply,Medium
+"Water scarcity in slum area",Water Supply,High
+"Bore well dried up",Water Supply,Medium
+"Water conservation awareness needed",Water Supply,Low
+"Pipeline passing through private property",Water Supply,Medium
+"Water connection disconnected wrongly",Water Supply,High
+"Sewage water backflow",Water Supply,High
+"Water charges too expensive",Water Supply,Low
+"Illegal water usage by industry",Water Supply,High
+"Water department corruption",Water Supply,High
+"Transformer explosion risk",Electricity,High
+"Power cable theft",Electricity,High
+"Illegal electricity hookup",Electricity,Medium
+"Electricity department rude staff",Electricity,Low
+"Smart meter malfunction",Electricity,Medium
+"Power restoration very slow",Electricity,High
+"High tension wire too low",Electricity,High
+"Electricity office always crowded",Electricity,Low
+"Meter tampering by neighbor",Electricity,Medium
+"Power backup generator needed",Electricity,Medium
+"Electricity bill payment issue",Electricity,Medium
+"Load limit exceeded frequently",Electricity,High
+"Distribution box not accessible",Electricity,Medium
+"Electrocution death occurred",Electricity,High
+"Solar panel subsidy not given",Electricity,Low
+"Power theft complaint ignored",Electricity,Medium
+"Electricity connection transfer delayed",Electricity,Low
+"Prepaid meter balance wrong",Electricity,Medium
+"Street light maintenance poor",Electricity,Medium
+"Power surge damaged electronics",Electricity,High
+"Road repair quality very poor",Roads & Infrastructure,Medium
+"Pothole repair needed urgently",Roads & Infrastructure,High
+"Road marking completely faded",Roads & Infrastructure,Medium
+"Footpath obstructed permanently",Roads & Infrastructure,Medium
+"Bridge maintenance overdue",Roads & Infrastructure,High
+"Road safety audit needed",Roads & Infrastructure,Medium
+"Drainage system clogged",Roads & Infrastructure,High
+"Road widening project stalled",Roads & Infrastructure,Medium
+"Flyover leaking during rain",Roads & Infrastructure,Medium
+"Bus shelter damaged",Roads & Infrastructure,Low
+"Road concrete slab shifted",Roads & Infrastructure,High
+"Street name board missing",Roads & Infrastructure,Low
+"Cycle track encroached",Roads & Infrastructure,Low
+"Road contractor using poor material",Roads & Infrastructure,High
+"Subway stairs slippery",Roads & Infrastructure,High
+"Road accident due to poor design",Roads & Infrastructure,High
+"Waterlogging under bridge",Roads & Infrastructure,High
+"Road divider plants dead",Roads & Infrastructure,Low
+"Footover bridge rusted",Roads & Infrastructure,Medium
+"Road dust pollution high",Roads & Infrastructure,Medium
+"Junction signal coordination poor",Traffic,Medium
+"Traffic violation not penalized",Traffic,Medium
+"Speed gun not used",Traffic,Low
+"Traffic awareness campaign needed",Traffic,Low
+"Drunk driving check not done",Traffic,High
+"Vehicle pollution check ignored",Traffic,Medium
+"Traffic fine amount unfair",Traffic,Low
+"Tow truck service unavailable",Traffic,Medium
+"Traffic data not analyzed",Traffic,Low
+"VIP movement causing disruption",Traffic,Medium
+"Heavy vehicle ban not enforced",Traffic,Medium
+"School bus safety not checked",Traffic,High
+"Parking meter not working",Traffic,Low
+"Traffic app information wrong",Traffic,Low
+"Road closure without alternate route",Traffic,High
+"Traffic volunteer program needed",Traffic,Low
+"Pedestrian safety poor",Traffic,High
+"Cycling infrastructure lacking",Traffic,Low
+"Garbage segregation bins missing",Sanitation,Medium
+"Sanitation workers no safety gear",Sanitation,High
+"Garbage processing plant needed",Sanitation,Medium
+"Wet waste collection irregular",Sanitation,Medium
+"Dry waste not collected",Sanitation,Low
+"Hazardous waste improper disposal",Sanitation,High
+"Garbage contractor not performing",Sanitation,Medium
+"Composting facility required",Sanitation,Low
+"Beach cleanup not regular",Sanitation,Medium
+"River pollution from sewage",Sanitation,High
+"Landfill site overflowing",Sanitation,High
+"Rag pickers creating mess",Sanitation,Medium
+"Garbage truck leaking waste",Sanitation,Medium
+"No penalty for littering",Sanitation,Low
+"Public awareness on cleanliness needed",Sanitation,Low
+"Sanitation budget insufficient",Sanitation,Medium
+"Garbage collection schedule unclear",Sanitation,Low
+"Incinerator not functioning",Sanitation,High
+"Swachh Bharat mission not effective",Sanitation,Medium
+"Waste to energy plant needed",Sanitation,Low
+"Hospital OPD registration system poor",Health,Medium
+"Health card not issued",Health,Medium
+"Referral system not working",Health,Medium
+"Medical superintendent unavailable",Health,Medium
+"Health helpline not responding",Health,High
+"Mobile medical unit not visiting",Health,High
+"Dental clinic not operational",Health,Medium
+"Eye checkup camp not held",Health,Low
+"Health record digitization pending",Health,Low
+"Telemedicine facility not available",Health,Medium
+"Ambulance GPS tracking needed",Health,Medium
+"Hospital visiting hours too short",Health,Low
+"Medical college hospital overcrowded",Health,High
+"Health scheme awareness lacking",Health,Low
+"Geriatric care facility absent",Health,Medium
+"Rehabilitation center needed",Health,Medium
+"Palliative care not available",Health,Medium
+"Health insurance claim rejected",Health,Medium
+"Corporate hospital overcharging",Health,High
+"Quack doctor practicing illegally",Health,High
+"Fake medicine being sold",Health,High
+"Pharmacy not maintaining stock",Health,Medium
+"Medical waste burning openly",Health,High
+"Hospital staff absenteeism high",Health,High
+"Patient attendant facility poor",Health,Medium
+"Midwife not available in village",Health,High
+"Health infrastructure rural poor",Health,High
+"Disease surveillance not done",Health,Medium
+"Nutrition program not reaching",Health,High
+"School dropout rate increasing",Education,Medium
+"Adult literacy program needed",Education,Low
+"School safety audit not done",Education,Medium
+"CCTV not installed in school",Education,Medium
+"School boundary wall incomplete",Education,Medium
+"No ramp for disabled students",Education,Medium
+"School election not conducted",Education,Low
+"Skill development program lacking",Education,Medium
+"School garden not maintained",Education,Low
+"No counselor in school",Education,Medium
+"School assembly area inadequate",Education,Low
+"Smart classroom not functional",Education,Medium
+"School magazine not published",Education,Low
+"Annual day celebration cancelled",Education,Low
+"Sports day not organized",Education,Low
+"School excursion not allowed",Education,Low
+"Parent complaints not addressed",Education,Medium
+"School management committee inactive",Education,Low
+"Education department unresponsive",Education,Medium
+"School merger affecting students",Education,Medium
+"Teacher transfer mid session",Education,Medium
+"Exam center too far",Education,Medium
+"Question paper leak suspected",Education,High
+"Fake degree racket",Education,High
+"Education loan not sanctioned",Education,Medium
+"School building unsafe structure",Education,High
+"Lightning arrester not installed",Education,High
+"Fire safety equipment absent",Education,High
+"First aid training not given",Education,Low
+"School bus accident prone",Education,High
+"Kidnapping attempt near school",Education,High
+"Police patrol near school needed",Public Safety / Police,High
+"Crime rate statistics not shared",Public Safety / Police,Low
+"Police complaint tracking system poor",Public Safety / Police,Medium
+"Victim compensation not received",Public Safety / Police,High
+"Witness protection not provided",Public Safety / Police,High
+"Police verification delayed",Public Safety / Police,Medium
+"Senior citizen safety concern",Public Safety / Police,High
+"Women safety helpline not working",Public Safety / Police,High
+"Tourist police absent",Public Safety / Police,Medium
+"Beach safety personnel missing",Public Safety / Police,Medium
+"Illegal parking by police vehicles",Public Safety / Police,Low
+"Police booth needs repair",Public Safety / Police,Low
+"Police dog squad not available",Public Safety / Police,Low
+"Bomb disposal squad far",Public Safety / Police,Medium
+"Anti-terrorism measures inadequate",Public Safety / Police,High
+"Border security lapse",Public Safety / Police,High
+"Coastal security weak",Public Safety / Police,High
+"Railway police absent",Public Safety / Police,Medium
+"Highway patrol infrequent",Public Safety / Police,Medium
+"Industrial area policing poor",Public Safety / Police,Medium
+"Night patrol vehicle needed",Public Safety / Police,High
+"Police modernization delayed",Public Safety / Police,Medium
+"Forensic lab capacity low",Public Safety / Police,Medium
+"Crime data analysis needed",Public Safety / Police,Low
+"Community policing not implemented",Public Safety / Police,Medium
+"Traffic violation e-challan system down",Traffic,Medium
+"Speed breaker height excessive",Roads & Infrastructure,Medium
+"Underground cable markers missing",Electricity,Low
+"Water meter reading access blocked",Water Supply,Low
+"Hospital parking inadequate",Health,Medium
+"School attendance system faulty",Education,Low
+"Police station record room disorganized",Public Safety / Police,Low
+"Garbage collection app not working",Sanitation,Low
+"Traffic signal timer not visible",Traffic,Medium
+"Public toilet pay and use machine broken",Sanitation,Medium
+"Hospital appointment system not online",Health,Medium
+"School admission portal crashing",Education,Medium
+"Electricity bill payment kiosk broken",Electricity,Low
+"Water tanker booking system offline",Water Supply,Medium
+"Road repair complaint tracking poor",Roads & Infrastructure,Low
+"Street light complaint number not working",Electricity,Medium
+"Pothole reported but not fixed",Roads & Infrastructure,High
+"Water quality complaint ignored",Water Supply,High
+"Power backup at hospital insufficient",Health,High
+"School examination hall inadequate",Education,Medium
+"Police control room call dropped",Public Safety / Police,High
+"Garbage burning causing air pollution",Sanitation,High
+"Traffic jam due to waterlogging",Traffic,High
+"Hospital generator not maintained",Health,High
+"School library books outdated",Education,Low
+"Police station toilet not clean",Public Safety / Police,Low
+"Water pipeline laying work incomplete",Water Supply,Medium
+"Electricity pole numbering missing",Electricity,Low
+"Road construction delay affecting business",Roads & Infrastructure,Medium
+"Traffic diversion signage confusing",Traffic,Medium
+"Sanitation worker safety training needed",Sanitation,Medium
+"Health worker incentive not paid",Health,Medium
+"School teacher training inadequate",Education,Medium
+"Police welfare measures insufficient",Public Safety / Police,Low
+"Water conservation drive not conducted",Water Supply,Low
+"Solar street light not maintained",Electricity,Medium
+"Footpath gradient too steep",Roads & Infrastructure,Medium
+"Traffic fine receipt not given",Traffic,Low
+"Garbage monitoring system needed",Sanitation,Low
+"Hospital complaint redressal slow",Health,Medium
+"School infrastructure fund misused",Education,High
+"Police station accessibility poor",Public Safety / Police,Medium
+"Water board meeting not public",Water Supply,Low
+"Electricity safety audit overdue",Electricity,Medium
+"Road safety barrier damaged",Roads & Infrastructure,High
+"Traffic education in school needed",Traffic,Low
+"Sanitation workers wages delayed",Sanitation,High
+"Medical equipment calibration not done",Health,High
+"School infrastructure committee inactive",Education,Low
+"Police grievance cell not responsive",Public Safety / Police,Medium
+"Drinking water quality fluctuating",Water Supply,High
+"Power factor correction needed",Electricity,Medium
+"Bridge load capacity sign missing",Roads & Infrastructure,Medium
+"Public transport frequency low",Traffic,Medium
+"Waste segregation awareness lacking",Sanitation,Low
+"Hospital infection control poor",Health,High
+"School uniform subsidy not given",Education,Medium
+"Police recruitment process delayed",Public Safety / Police,Low
+"Water distribution inequality",Water Supply,High
+"Electricity theft detection weak",Electricity,Medium
+"Road construction quality monitoring poor",Roads & Infrastructure,Medium
+"Traffic signal maintenance contract lapsed",Traffic,Medium
+"Garbage collection privatization issues",Sanitation,Medium
+"Healthcare privatization affecting access",Health,High
+"Education privatization concerns",Education,Medium
+"Police infrastructure modernization needed",Public Safety / Police,Medium
