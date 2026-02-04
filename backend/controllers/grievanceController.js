@@ -5,30 +5,33 @@ const axios = require("axios");
 // CREATE NEW GRIEVANCE
 exports.createGrievance = async (req, res) => {
   try {
+    console.log("Incoming grievance:", req.body);
+
     const { title, description, citizen } = req.body;
 
-    // 1️⃣ Call Python AI server
-    const response = await axios.post("http://127.0.0.1:5001/classify", {
-      description
-    });
+    if (!title || !description) {
+      return res.status(400).json({ message: "Missing required fields" });
+    }
 
-    const { department, priority } = response.data;
-
-    // 2️⃣ Create grievance with AI results
     const grievance = new Grievance({
       title,
       description,
-      citizen,
-      department,
-      priority,
-      status: "Pending" // default
+      citizen
     });
 
     await grievance.save();
-    res.status(201).json({ msg: "Grievance submitted", grievance });
-  } catch (err) {
-    console.error("Error saving grievance:", err.message);
-    res.status(500).send("Server Error");
+
+    res.status(201).json({
+      message: "Grievance created successfully",
+      grievance
+    });
+
+  } catch (error) {
+    console.error("Create grievance error:", error);
+    res.status(500).json({
+      message: "Error creating grievance",
+      error: error.message
+    });
   }
 };
 
@@ -43,3 +46,39 @@ exports.getGrievances = async (req, res) => {
     res.status(500).send("Server Error");
   }
 };
+
+exports.getByDepartment = async (req, res) => {
+  try {
+    const department = req.params.dept;
+
+    const grievances = await Grievance.find({
+      department
+    }).sort({ priorityScore: -1 });
+
+    res.json(grievances);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching grievances" });
+  }
+};
+
+exports.updateStatus = async (req, res) => {
+  try {
+    const { status } = req.body;
+
+    if (!["Pending", "In Progress", "Resolved"].includes(status)) {
+      return res.status(400).json({ message: "Invalid status" });
+    }
+
+    const grievance = await Grievance.findByIdAndUpdate(
+      req.params.id,
+      { status },
+      { new: true }
+    );
+
+    res.json(grievance);
+  } catch (err) {
+    res.status(500).json({ message: "Error updating status" });
+  }
+};
+
+

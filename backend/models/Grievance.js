@@ -14,10 +14,7 @@ const grievanceSchema = new mongoose.Schema({
     ref: "User", // links grievance to user
     required: true
   },
-  status: {
-    type: String,
-    default: "Pending",
-  },
+
   priority: {
     type: String,
     default: "Normal", 
@@ -30,6 +27,11 @@ const grievanceSchema = new mongoose.Schema({
 
 priorityScore: {
   type: Number
+},
+status: {
+  type: String,
+  enum: ["Pending", "In Progress", "Resolved"],
+  default: "Pending"
 },
   createdAt: {
     type: Date,
