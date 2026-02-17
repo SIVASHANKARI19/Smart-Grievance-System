@@ -53,6 +53,9 @@ def calculate_priority(description, repeat_count=0):
     urgency_score = sum(
         score for keyword, score in URGENCY_KEYWORDS.items() if keyword in text
     )
+
+
+    
     total_score += min(urgency_score, 40)
     
     # Check time indicators (cap at 20)

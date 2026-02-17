@@ -15,14 +15,6 @@ app.use(cors());
 app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/grievances", grievanceRoutes);
-
-
-
-
-app.get("/", (req, res) => {
-  res.send("Smart Grievance System Backend is running");
-});
-
 mongoose.connect(MONGOURL, {
 
 }).then(() => {
