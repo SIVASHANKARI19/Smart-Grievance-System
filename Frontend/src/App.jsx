@@ -25,7 +25,48 @@ const RoleProtectedRoute = ({ children, allowedRole }) => {
 
 function App() {
   return (
- 
+    <AuthProvider>
+    <BrowserRouter>
+      <Routes>
+        {/* Default redirect */}
+        <Route path="/" element={<Navigate to="/login/citizen" replace />} />
+
+        {/* Login routes */}
+        <Route path="/login/citizen" element={<LoginCitizen />} />
+        <Route path="/login/department" element={<LoginDepartment />} />
+        <Route path="/login/admin" element={<LoginAdmin />} />
+
+        {/* Dashboards with role-based protection */}
+        <Route
+          path="/citizen/dashboard"
+          element={
+            <RoleProtectedRoute allowedRole="citizen">
+              <CitizenDashboard />
+            </RoleProtectedRoute>
+          }
+        />
+        <Route
+          path="/department/dashboard"
+          element={
+            <RoleProtectedRoute allowedRole="officer">
+              <DepartmentDashboard />
+            </RoleProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/dashboard"
+          element={
+            <RoleProtectedRoute allowedRole="admin">
+              <AdminDashboard />
+            </RoleProtectedRoute>
+          }
+        />
+
+        {/* Catch-all redirect */}
+        <Route path="*" element={<Navigate to="/login/citizen" replace />} />
+      </Routes>
+    </BrowserRouter>
+    </AuthProvider>
   );
 }
 

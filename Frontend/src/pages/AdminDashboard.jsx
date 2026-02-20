@@ -49,6 +49,8 @@ export const AdminDashboard = () => {
       resolved: data.filter(g => g.status === "Resolved").length,
       critical: data.filter(
         g => g.priority === "Critical" || g.priority === "High"
+
+        
       ).length,
       massComplaints: data.filter(g => g.massComplaint).length,
     });
