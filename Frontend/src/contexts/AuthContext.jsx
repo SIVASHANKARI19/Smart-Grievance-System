@@ -17,6 +17,8 @@ export const AuthProvider = ({ children }) => {
     const token = getStoredToken();
     console.log("TOKEN:", token);
 
+   
+   
     if (token && !isTokenExpired(token)) {
       const decoded = decodeToken(token);
       console.log("DECODED USER:", decoded);
