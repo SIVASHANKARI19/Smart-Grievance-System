@@ -52,6 +52,8 @@ export const DepartmentDashboard = () => {
     });
   };
 
+ 
+ 
   const handleStatusUpdate = async (id, status) => {
     setUpdating(id);
     try {
