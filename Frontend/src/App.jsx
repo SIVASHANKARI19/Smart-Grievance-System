@@ -55,6 +55,7 @@ function App() {
         />
         <Route
           path="/admin/dashboard"
+          
           element={
             <RoleProtectedRoute allowedRole="admin">
               <AdminDashboard />
