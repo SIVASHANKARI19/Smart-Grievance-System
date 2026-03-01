@@ -9,6 +9,7 @@ const grievanceSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  
   citizen: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User", // links grievance to user
