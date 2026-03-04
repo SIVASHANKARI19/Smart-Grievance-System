@@ -2,7 +2,8 @@ import React from "react";
 
 export const Badge = ({ children, variant, size = "md" }) => {
   
-  
+ 
+
   const variantStyles = {
     pending: "bg-amber-100 text-amber-800 border-amber-300",
     "in-progress": "bg-blue-100 text-blue-800 border-blue-300",
