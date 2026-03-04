@@ -1,6 +1,8 @@
 import React from "react";
 
 export const Card = ({ children, className = "", title }) => {
+
+  
   return (
     <div
       className={`bg-white border border-gray-200 rounded-lg shadow-sm ${className}`}
