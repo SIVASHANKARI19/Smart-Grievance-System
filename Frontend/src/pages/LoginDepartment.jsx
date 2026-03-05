@@ -8,6 +8,7 @@ import { Button } from "../components/Button";
 import { Card } from "../components/Card";
 import { AlertCircle, Building2 } from "lucide-react";
 
+
 export const LoginDepartment = () => {
   const navigate = useNavigate();
   const { login, isAuthenticated, user } = useAuth();
