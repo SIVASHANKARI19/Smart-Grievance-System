@@ -10,6 +10,7 @@ export const decodeToken = (token) => {
   }
 };
 
+
 export const isTokenExpired = (token) => {
   const decoded = decodeToken(token);
   if (!decoded) return true;
