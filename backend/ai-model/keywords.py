@@ -308,11 +308,11 @@ def repetition_score(repeat_count):
         5-14 complaints → 10 points (Multiple reports)
         1-4 complaints → 0 points (Individual issue)
     """
-    if repeat_count >= 50:
+    if repeat_count >= 12:
         return 50   # Massive public impact - entire area affected
-    elif repeat_count >= 30:
+    elif repeat_count >= 10:
         return 35   # Major area-wide issue - multiple localities
-    elif repeat_count >= 15:
+    elif repeat_count >= 7:
         return 20   # Significant neighborhood problem
     elif repeat_count >= 5:
         return 10   # Multiple reports - emerging pattern
