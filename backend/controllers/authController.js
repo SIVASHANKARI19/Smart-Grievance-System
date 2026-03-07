@@ -2,25 +2,24 @@ const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-
 // REGISTER
 exports.register = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    // 1. ADD 'department' to the destructured body
+    const { name, email, password, role, department } = req.body;
 
-    // Check if user already exists
     let user = await User.findOne({ email });
     if (user) return res.status(400).json({ msg: "User already exists" });
 
-    // Hash password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // Create new user
     user = new User({
       name,
       email,
-      password: hashedPassword
+      password: hashedPassword,
+      role: role || "citizen",
+      department: department || null // <--- ADDED THIS FIELD
     });
 
     await user.save();
@@ -31,39 +30,33 @@ exports.register = async (req, res) => {
   }
 };
 
-
-
-
-
 // LOGIN
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Find user
     const user = await User.findOne({ email });
     if (!user) return res.status(400).json({ msg: "Invalid credentials" });
 
-    // Compare password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ msg: "Invalid credentials" });
 
-   const token = jwt.sign(
-    {
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      role: user.role,
-    },
-    process.env.JWT_SECRET,
-    { expiresIn: "1d" }
-  );
+    // 2. We MUST put `department` inside the JWT Token so the frontend knows what department this officer is!
+    const token = jwt.sign(
+      {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        department: user.department // <--- ADDED THIS FIELD
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: "1d" }
+    );
 
-  res.json({ token });
+    res.json({ token });
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
   }
 };
-
-

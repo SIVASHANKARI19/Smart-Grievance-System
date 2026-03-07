@@ -19,6 +19,9 @@ const userSchema = new mongoose.Schema({
   default: "citizen",
   enum: ["citizen", "admin","officer"]
 },
+ department: {
+    type: String 
+  },
   createdAt: {
     type: Date,
     default: Date.now

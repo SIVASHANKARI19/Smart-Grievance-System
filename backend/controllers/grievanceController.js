@@ -2,21 +2,28 @@
 const Grievance = require("../models/Grievance");
 const axios = require("axios");
 
+
+
 // CREATE NEW GRIEVANCE
 exports.createGrievance = async (req, res) => {
   try {
     console.log("Incoming grievance:", req.body);
 
-    const { title, description, citizen } = req.body;
+    // 1. Extract the NEW fields being sent by the Frontend AI system
+    const { title, description, citizen, department, priorityScore, priorityLevel } = req.body;
 
-    if (!title || !description) {
+    if (!title || !description || !citizen) {
       return res.status(400).json({ message: "Missing required fields" });
     }
 
+    // 2. Save the AI fields to the new Grievance
     const grievance = new Grievance({
       title,
       description,
-      citizen
+      citizen,
+      department: department || "Unassigned",          // <--- ADDED THIS FIELD
+      priorityScore: priorityScore || 0,               // <--- ADDED THIS FIELD
+      priority: priorityLevel || "Low"                 // <--- ADDED THIS FIELD
     });
 
     await grievance.save();
@@ -34,6 +41,9 @@ exports.createGrievance = async (req, res) => {
     });
   }
 };
+
+// ... keep getGrievances, getByDepartment, and updateStatus untouched from your snippet below ...
+
 
 
 // GET ALL GRIEVANCES
