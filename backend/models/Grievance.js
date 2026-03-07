@@ -32,6 +32,15 @@ const grievanceSchema = new mongoose.Schema({
     type: Number
   },
 
+    address:       { type: String },
+  contactNumber: { type: String },
+  location: {
+    lat: { type: Number },
+    lng: { type: Number }
+  },
+  image:         { type: String }, 
+  category:      { type: String },
+
   status: {
     type: String,
     enum: ["Pending", "In Progress", "Resolved"],

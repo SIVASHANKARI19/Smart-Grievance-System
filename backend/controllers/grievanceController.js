@@ -9,40 +9,43 @@ exports.createGrievance = async (req, res) => {
   try {
     console.log("Incoming grievance:", req.body);
 
-    // 1. Extract the NEW fields being sent by the Frontend AI system
-    const { title, description, citizen, department, priorityScore, priorityLevel } = req.body;
+    const {
+      title, description, citizen,
+      department, priorityScore, priorityLevel, category,
+      // ✅ NEW Phase 2 fields
+      address, contactNumber, location, image
+    } = req.body;
 
     if (!title || !description || !citizen) {
       return res.status(400).json({ message: "Missing required fields" });
     }
 
-    // 2. Save the AI fields to the new Grievance
     const grievance = new Grievance({
       title,
       description,
       citizen,
-      department: department || "Unassigned",          // <--- ADDED THIS FIELD
-      priorityScore: priorityScore || 0,               // <--- ADDED THIS FIELD
-      priority: priorityLevel || "Low"                 // <--- ADDED THIS FIELD
+      department:    department    || "Unassigned",
+      priorityScore: priorityScore || 0,
+      priority:      priorityLevel || "Low",
+      category:      category      || null,
+      // ✅ NEW Phase 2 fields
+      address:       address       || null,
+      contactNumber: contactNumber || null,
+      location:      location      || null,
+      image:         image         || null
     });
 
     await grievance.save();
 
-    res.status(201).json({
-      message: "Grievance created successfully",
-      grievance
-    });
+    res.status(201).json({ message: "Grievance created successfully", grievance });
 
   } catch (error) {
     console.error("Create grievance error:", error);
-    res.status(500).json({
-      message: "Error creating grievance",
-      error: error.message
-    });
+    res.status(500).json({ message: "Error creating grievance", error: error.message });
   }
 };
 
-// ... keep getGrievances, getByDepartment, and updateStatus untouched from your snippet below ...
+
 
 
 
