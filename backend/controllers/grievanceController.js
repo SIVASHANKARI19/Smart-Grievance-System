@@ -20,6 +20,7 @@ exports.createGrievance = async (req, res) => {
       return res.status(400).json({ message: "Missing required fields" });
     }
 
+   
     const grievance = new Grievance({
       title,
       description,
@@ -28,7 +29,6 @@ exports.createGrievance = async (req, res) => {
       priorityScore: priorityScore || 0,
       priority:      priorityLevel || "Low",
       category:      category      || null,
-      // ✅ NEW Phase 2 fields
       address:       address       || null,
       contactNumber: contactNumber || null,
       location:      location      || null,
