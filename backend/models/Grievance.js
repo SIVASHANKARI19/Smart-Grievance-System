@@ -1,57 +1,55 @@
 const mongoose = require("mongoose");
 
 const grievanceSchema = new mongoose.Schema({
-
   title: {
     type: String,
-    required: true
+    required: true,
   },
 
   description: {
     type: String,
-    required: true
+    required: true,
   },
 
   citizen: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
-    required: true
+    required: true,
   },
 
   department: {
-    type: String
+    type: String,
   },
 
   priority: {
     type: String,
     enum: ["Low", "Medium", "High", "Critical"],
-    default: "Low"
+    default: "Low",
   },
 
   priorityScore: {
-    type: Number
+    type: Number,
   },
 
-    address:       { type: String },
+  address: { type: String },
   contactNumber: { type: String },
   location: {
     lat: { type: Number },
-    lng: { type: Number }
+    lng: { type: Number },
   },
-  image:         { type: String }, 
-  category:      { type: String },
+  image: { type: String },
+  category: { type: String },
 
   status: {
     type: String,
     enum: ["Pending", "In Progress", "Resolved"],
-    default: "Pending"
+    default: "Pending",
   },
 
   createdAt: {
     type: Date,
-    default: Date.now
-  }
-
+    default: Date.now,
+  },
 });
 
 module.exports = mongoose.model("Grievance", grievanceSchema);
