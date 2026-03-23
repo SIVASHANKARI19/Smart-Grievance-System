@@ -1,8 +1,5 @@
-
 const Grievance = require("../models/Grievance");
 const axios = require("axios");
-
-
 
 // CREATE NEW GRIEVANCE
 exports.createGrievance = async (req, res) => {
@@ -10,44 +7,50 @@ exports.createGrievance = async (req, res) => {
     console.log("Incoming grievance:", req.body);
 
     const {
-      title, description, citizen,
-      department, priorityScore, priorityLevel, category,
+      title,
+      description,
+      citizen,
+      department,
+      priorityScore,
+      priorityLevel,
+      category,
       // ✅ NEW Phase 2 fields
-      address, contactNumber, location, image
+      address,
+      contactNumber,
+      location,
+      image,
     } = req.body;
 
     if (!title || !description || !citizen) {
       return res.status(400).json({ message: "Missing required fields" });
     }
 
-   
     const grievance = new Grievance({
       title,
       description,
       citizen,
-      department:    department    || "Unassigned",
+      department: department || "Unassigned",
       priorityScore: priorityScore || 0,
-      priority:      priorityLevel || "Low",
-      category:      category      || null,
-      address:       address       || null,
+      priority: priorityLevel || "Low",
+      category: category || null,
+      address: address || null,
       contactNumber: contactNumber || null,
-      location:      location      || null,
-      image:         image         || null
+      location: location || null,
+      image: image || null,
     });
 
     await grievance.save();
 
-    res.status(201).json({ message: "Grievance created successfully", grievance });
-
+    res
+      .status(201)
+      .json({ message: "Grievance created successfully", grievance });
   } catch (error) {
     console.error("Create grievance error:", error);
-    res.status(500).json({ message: "Error creating grievance", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Error creating grievance", error: error.message });
   }
 };
-
-
-
-
 
 // GET ALL GRIEVANCES
 exports.getGrievances = async (req, res) => {
@@ -65,7 +68,7 @@ exports.getByDepartment = async (req, res) => {
     const department = req.params.dept;
 
     const grievances = await Grievance.find({
-      department
+      department,
     }).sort({ priorityScore: -1 });
 
     res.json(grievances);
@@ -85,7 +88,7 @@ exports.updateStatus = async (req, res) => {
     const grievance = await Grievance.findByIdAndUpdate(
       req.params.id,
       { status },
-      { new: true }
+      { new: true },
     );
 
     res.json(grievance);
@@ -93,5 +96,3 @@ exports.updateStatus = async (req, res) => {
     res.status(500).json({ message: "Error updating status" });
   }
 };
-
-

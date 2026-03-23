@@ -19,7 +19,7 @@ exports.register = async (req, res) => {
       email,
       password: hashedPassword,
       role: role || "citizen",
-      department: department || null // <--- ADDED THIS FIELD
+      department: department || null, // <--- ADDED THIS FIELD
     });
 
     await user.save();
@@ -48,10 +48,10 @@ exports.login = async (req, res) => {
         name: user.name,
         email: user.email,
         role: user.role,
-        department: user.department // <--- ADDED THIS FIELD
+        department: user.department, // <--- ADDED THIS FIELD
       },
       process.env.JWT_SECRET,
-      { expiresIn: "1d" }
+      { expiresIn: "1d" },
     );
 
     res.json({ token });
