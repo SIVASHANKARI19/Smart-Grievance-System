@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { login as apiLogin } from "../api/auth";
+import { decodeToken } from "../utils/jwt";
 import { Input } from "../components/Input";
 import { Button } from "../components/Button";
 import { Card } from "../components/Card";
@@ -9,32 +10,43 @@ import { AlertCircle, Users } from "lucide-react";
 
 export const LoginCitizen = () => {
   const navigate = useNavigate();
-  const { isAuthenticated, user } = useAuth();
-
+  const { login, isAuthenticated, user } = useAuth();
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
- 
-    if (isAuthenticated && user?.role === "citizen") {
+  if (isAuthenticated && user?.role === "Citizen") {
     return <Navigate to="/citizen/dashboard" replace />;
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    setLoading(true);
 
     try {
       const response = await apiLogin(formData);
-      console.log("LOGIN RESPONSE:", response); // { token }
+      const decoded = decodeToken(response.token);
 
-      login(response.token); // 🔥 REQUIRED
+
+      login(response.token);
       navigate("/citizen/dashboard");
-    } catch {
-      setError("Login failed");
+    } catch (err) {
+      console.error("Login error:", {
+        status: err.response?.status,
+        data: err.response?.data,
+        message: err.message,
+      });
+
+      setError(
+        err.response?.data?.message ||
+          err.message ||
+          "Login failed. Check server connection and credentials."
+      );
+
+      setLoading(false);
     }
   };
-
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -47,22 +59,22 @@ export const LoginCitizen = () => {
           <div className="inline-flex items-center justify-center w-16 h-16 bg-[#1F3A5F] rounded-full mb-4">
             <Users className="w-8 h-8 text-white" />
           </div>
-          <h1 className="text-3xl font-bold text-[#1F3A5F] mb-2">Citizen Portal</h1>
-          <p className="text-gray-600">Public Grievance Redressal System</p>
+          <h1 className="text-3xl font-bold text-[#1F3A5F] mb-2">
+            Citizen Portal
+          </h1>
+          <p className="text-gray-600">
+            Public Grievance Redressal System
+          </p>
         </div>
 
         <Card>
           <form onSubmit={handleSubmit} className="space-y-4">
             {error && (
               <div className="bg-red-50 border border-red-200 rounded-md p-3 flex items-start">
-                <AlertCircle className="w-5 h-5 text-red-600 mr-2 mt-0.5" />
+                <AlertCircle className="w-5 h-5 text-red-600 mr-2 flex-shrink-0 mt-0.5" />
                 <p className="text-sm text-red-700">{error}</p>
               </div>
             )}
-
-
-
-
 
             <Input
               label="Email Address"
@@ -89,7 +101,19 @@ export const LoginCitizen = () => {
             </Button>
           </form>
 
-          <div className="mt-6 pt-6 border-t border-gray-200">
+          <div className="mt-6 pt-6 border-t border-gray-200 space-y-4">
+            <div className="bg-blue-50 border border-blue-200 rounded-md p-3">
+              <p className="text-xs font-semibold text-blue-900 mb-2">
+                Demo Credentials (Citizen):
+              </p>
+              <p className="text-xs text-blue-800">
+                Email: alice@example.com
+              </p>
+              <p className="text-xs text-blue-800">
+                Password: 123456
+              </p>
+            </div>
+
             <p className="text-sm text-center text-gray-600">
               Different portal?{" "}
               <a
@@ -97,8 +121,8 @@ export const LoginCitizen = () => {
                 className="text-[#1F3A5F] hover:underline font-medium"
               >
                 Department Official
-              </a>{" "}
-              |{" "}
+              </a>
+              {" | "}
               <a
                 href="/login/admin"
                 className="text-[#1F3A5F] hover:underline font-medium"

@@ -16,9 +16,7 @@ if (isLoading) {
   return <p className="text-center mt-10">Loading...</p>;
 }
 
-if (!user) {
-  return <p className="text-center mt-10">User not authenticated</p>;
-}
+
   
   const handleSubmit = async (e) => {
     e.preventDefault();
