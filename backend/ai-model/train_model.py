@@ -10,6 +10,7 @@ X = data['description']
 y_dept = data['department']
 y_priority = data['priority']
 
+
 vectorizer = TfidfVectorizer()
 X_vec = vectorizer.fit_transform(X)
 

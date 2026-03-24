@@ -5,6 +5,7 @@ const { createGrievance, getGrievances, getByDepartment , updateStatus} = requir
 // Routes
 router.post("/", createGrievance); // submit new grievance
 router.get("/", getGrievances);
+
 router.get("/department/:dept", getByDepartment);    // get all grievances
 router.put("/:id/status", updateStatus);
 
