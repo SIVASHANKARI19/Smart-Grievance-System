@@ -28,7 +28,6 @@ export const LoginCitizen = () => {
       const response = await apiLogin(formData);
       const decoded = decodeToken(response.token);
 
-
       login(response.token);
       navigate("/citizen/dashboard");
     } catch (err) {
@@ -41,7 +40,7 @@ export const LoginCitizen = () => {
       setError(
         err.response?.data?.message ||
           err.message ||
-          "Login failed. Check server connection and credentials."
+          "Login failed. Check server connection and credentials.",
       );
 
       setLoading(false);
@@ -62,9 +61,7 @@ export const LoginCitizen = () => {
           <h1 className="text-3xl font-bold text-[#1F3A5F] mb-2">
             Citizen Portal
           </h1>
-          <p className="text-gray-600">
-            Public Grievance Redressal System
-          </p>
+          <p className="text-gray-600">Public Grievance Redressal System</p>
         </div>
 
         <Card>
@@ -106,12 +103,8 @@ export const LoginCitizen = () => {
               <p className="text-xs font-semibold text-blue-900 mb-2">
                 Demo Credentials (Citizen):
               </p>
-              <p className="text-xs text-blue-800">
-                Email: alice@example.com
-              </p>
-              <p className="text-xs text-blue-800">
-                Password: 123456
-              </p>
+              <p className="text-xs text-blue-800">Email: alice@example.com</p>
+              <p className="text-xs text-blue-800">Password: 123456</p>
             </div>
 
             <p className="text-sm text-center text-gray-600">
