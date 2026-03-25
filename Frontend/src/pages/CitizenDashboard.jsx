@@ -12,12 +12,10 @@ const CitizenDashboard = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-if (isLoading) {
-  return <p className="text-center mt-10">Loading...</p>;
-}
+  if (isLoading) {
+    return <p className="text-center mt-10">Loading...</p>;
+  }
 
-
-  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
