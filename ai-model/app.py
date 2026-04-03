@@ -90,68 +90,69 @@ def calculate_priority(description, repeat_count=0):
 
 @app.route("/classify", methods=["POST"])
 def classify():
-    """
-    Classify civic complaint by department and priority.
-    
-    Expected JSON input:
-    {
-        "description": "complaint text here",
-        "repeatCount": 5  // optional, defaults to 0
-    }
-    
-    Returns:
-    {
-        "department": "predicted department",
-        "priority": "Critical/High/Medium/Low",
-        "priorityScore": numerical_score,
-        "repeatCount": number_of_similar_complaints,
-        "isMassComplaint": true/false
-    }
-    """
-    data = request.json
-    desc = data.get("description", "")
-    repeat_count = data.get("repeatCount", 0)
-    
-    if not desc:
+    try:
+        data = request.get_json(silent=True) or {}
+        print("Incoming request data:", data)
+
+        desc = data.get("description", "")
+        repeat_count = data.get("repeatCount", 0)
+
+        if not isinstance(desc, str) or not desc.strip():
+            return jsonify({
+                "error": "Description is required"
+            }), 400
+
+        try:
+            repeat_count = int(repeat_count)
+        except (TypeError, ValueError):
+            repeat_count = 0
+
+        # Predict department using ML model
+        X_vec = vectorizer.transform([desc])
+        department = dept_model.predict(X_vec)[0]
+
+        # Calculate priority score
+        score = calculate_priority(desc, repeat_count)
+
+        # Force critical for mass complaints
+        is_mass_complaint = repeat_count >= 30
+
+        if is_mass_complaint:
+            priority = "Critical"
+            priority_reason = "Mass complaint - multiple citizens affected"
+        elif score >= 70:
+            priority = "Critical"
+            priority_reason = "High emergency/urgency score"
+        elif score >= 40:
+            priority = "High"
+            priority_reason = "Significant urgency detected"
+        elif score >= 20:
+            priority = "Medium"
+            priority_reason = "Moderate priority issue"
+        else:
+            priority = "Low"
+            priority_reason = "Routine complaint"
+
+        result = {
+            "department": str(department),
+            "priority": priority,
+            "priorityScore": int(score),
+            "repeatCount": repeat_count,
+            "isMassComplaint": is_mass_complaint,
+            "reason": priority_reason
+        }
+
+        print("Classification result:", result)
+        return jsonify(result), 200
+
+    except Exception as e:
+        import traceback
+        print("CLASSIFY ERROR:", str(e))
+        traceback.print_exc()
         return jsonify({
-            "error": "Description is required"
-        }), 400
-
-    # Predict department using ML model
-    X_vec = vectorizer.transform([desc])
-    department = dept_model.predict(X_vec)[0]
-
-    # Calculate priority score
-    score = calculate_priority(desc, repeat_count)
-    
-    # 🚨 FORCE CRITICAL PRIORITY FOR MASS COMPLAINTS
-    # If 30+ people report same issue → automatically CRITICAL
-    is_mass_complaint = repeat_count >= 30
-    
-    if is_mass_complaint:
-        priority = "Critical"
-        priority_reason = "Mass complaint - multiple citizens affected"
-    elif score >= 70:
-        priority = "Critical"
-        priority_reason = "High emergency/urgency score"
-    elif score >= 40:
-        priority = "High"
-        priority_reason = "Significant urgency detected"
-    elif score >= 20:
-        priority = "Medium"
-        priority_reason = "Moderate priority issue"
-    else:
-        priority = "Low"
-        priority_reason = "Routine complaint"
-
-    return jsonify({
-        "department": department,
-        "priority": priority,
-        "priorityScore": score,
-        "repeatCount": repeat_count,
-        "isMassComplaint": is_mass_complaint,
-        "reason": priority_reason
-    })
+            "error": "Internal server error",
+            "details": str(e)
+        }), 500
 
 @app.route("/health", methods=["GET"])
 def health_check():
