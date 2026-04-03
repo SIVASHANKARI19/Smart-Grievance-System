@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 import os
+from flask_cors import CORS
 import joblib
 from keywords import (
     URGENCY_KEYWORDS, 
@@ -12,6 +13,10 @@ from keywords import (
 )
 
 app = Flask(__name__)
+CORS(app, origins=[
+    "https://smart-grievance-system-frontend.vercel.app",
+    "https://smart-grievance-system-frontend-2i0zfyvo4.vercel.app"
+])
 
 vectorizer = joblib.load("vectorizer.pkl")
 dept_model = joblib.load("dept_model.pkl")
