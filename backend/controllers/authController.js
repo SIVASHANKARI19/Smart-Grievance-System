@@ -5,11 +5,12 @@ const jwt = require("jsonwebtoken");
 // REGISTER
 exports.register = async (req, res) => {
   try {
-    // 1. ADD 'department' to the destructured body
     const { name, email, password, role, department } = req.body;
 
     let user = await User.findOne({ email });
-    if (user) return res.status(400).json({ msg: "User already exists" });
+    if (user) {
+      return res.status(400).json({ msg: "User already exists" });
+    }
 
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
@@ -19,14 +20,27 @@ exports.register = async (req, res) => {
       email,
       password: hashedPassword,
       role: role || "citizen",
-      department: department || null, // <--- ADDED THIS FIELD
+      department: department || null,
     });
 
     await user.save();
-    res.status(201).json({ msg: "User registered successfully", user });
+
+    res.status(201).json({
+      msg: "User registered successfully",
+      user: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        department: user.department
+      }
+    });
   } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server Error");
+    console.error("REGISTER ERROR FULL:", err);
+    res.status(500).json({
+      msg: "Server Error",
+      error: err.message
+    });
   }
 };
 
