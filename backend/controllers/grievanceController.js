@@ -96,3 +96,32 @@ exports.updateStatus = async (req, res) => {
     res.status(500).json({ message: "Error updating status" });
   }
 };
+
+const Officer = require("../models/Officer");
+
+// Inside createGrievance, after saving grievance:
+const officers = await Officer.find({ 
+  department: grievance.department, 
+  isActive: true 
+});
+
+let assignedOfficer = null;
+if (officers.length > 0) {
+  if (priorityLevel === "Critical") {
+    assignedOfficer = officers[0]; // Senior officer
+  } else {
+    assignedOfficer = officers[Math.floor(Math.random() * officers.length)];
+  }
+}
+
+// Add to grievance result
+res.status(201).json({ 
+  message: "Grievance created successfully", 
+  grievance,
+  assignedOfficer: assignedOfficer ? {
+    name: assignedOfficer.name,
+    email: assignedOfficer.email,
+    phone: assignedOfficer.phone,
+    employeeId: assignedOfficer.employeeId
+  } : null
+});

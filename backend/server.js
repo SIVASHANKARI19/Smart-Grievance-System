@@ -30,7 +30,8 @@ mongoose.connect(MONGOURL, {
 }).catch((error) => {
   console.error("Error connecting to MongoDB:", error);
 });
-
+const officerRoutes = require("./routes/officerRoutes");
+app.use("/api/officers", officerRoutes);
 const PORT = process.env.PORT || 5000;
 
 mongoose.connect(MONGOURL)
@@ -40,6 +41,7 @@ mongoose.connect(MONGOURL)
       console.log(`Server running on port ${PORT}`);
     });
   })
+  
   .catch((error) => {
     console.error("Error connecting to MongoDB:", error);
   });
