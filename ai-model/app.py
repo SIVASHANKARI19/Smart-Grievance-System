@@ -253,10 +253,8 @@ def debug():
     
     # Try loading vectorizer
     try:
-        import joblib
-        v = joblib.load(os.path.join(BASE_DIR, "vectorizer.pkl"))
-        v.transform(["test"])
-        files["vectorizer_status"] = "OK - fitted"
+        vectorizer.transform(["test"])  # test in-memory vectorizer
+        files["vectorizer_status"] = "OK - fitted (in memory)"
     except Exception as e:
         files["vectorizer_status"] = str(e)
 
