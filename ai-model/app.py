@@ -18,9 +18,33 @@ CORS(app, origins=[
     "https://smart-grievance-system-frontend-2i0zfyvo4.vercel.app"
 ])
 
-vectorizer = joblib.load("vectorizer.pkl")
-dept_model = joblib.load("dept_model.pkl")
-priority_model = joblib.load("priority_model.pkl")
+import pandas as pd
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.naive_bayes import MultinomialNB
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+def load_models():
+    try:
+        v = joblib.load(os.path.join(BASE_DIR, "vectorizer.pkl"))
+        v.transform(["test"])  # verify fitted
+        d = joblib.load(os.path.join(BASE_DIR, "dept_model.pkl"))
+        p = joblib.load(os.path.join(BASE_DIR, "priority_model.pkl"))
+        print("✅ Models loaded from pkl")
+        return v, d, p
+    except Exception as e:
+        print(f"⚠️ PKL load failed: {e} — retraining...")
+        data = pd.read_csv(os.path.join(BASE_DIR, "data.csv"))
+        v = TfidfVectorizer()
+        X_vec = v.fit_transform(data['description'])
+        d = MultinomialNB()
+        d.fit(X_vec, data['department'])
+        p = MultinomialNB()
+        p.fit(X_vec, data['priority'])
+        print("✅ Retrained successfully")
+        return v, d, p
+
+vectorizer, dept_model, priority_model = load_models()
 
 def calculate_priority(description, repeat_count=0):
     """
