@@ -1,4 +1,5 @@
 const Grievance = require("../models/Grievance");
+const Officer = require("../models/Officer");
 const axios = require("axios");
 
 // CREATE NEW GRIEVANCE
@@ -14,7 +15,6 @@ exports.createGrievance = async (req, res) => {
       priorityScore,
       priorityLevel,
       category,
-      // ✅ NEW Phase 2 fields
       address,
       contactNumber,
       location,
@@ -41,14 +41,41 @@ exports.createGrievance = async (req, res) => {
 
     await grievance.save();
 
-    res
-      .status(201)
-      .json({ message: "Grievance created successfully", grievance });
+    // ✅ Officer assignment - INSIDE the function
+    let assignedOfficer = null;
+    try {
+      const officers = await Officer.find({
+        department: grievance.department,
+        isActive: true,
+      });
+
+      if (officers.length > 0) {
+        if (priorityLevel === "Critical") {
+          assignedOfficer = officers[0]; // Senior officer for critical
+        } else {
+          assignedOfficer = officers[Math.floor(Math.random() * officers.length)];
+        }
+      }
+    } catch (officerErr) {
+      console.log("Officer assignment skipped:", officerErr.message);
+    }
+
+    res.status(201).json({
+      message: "Grievance created successfully",
+      grievance,
+      assignedOfficer: assignedOfficer
+        ? {
+            name: assignedOfficer.name,
+            email: assignedOfficer.email,
+            phone: assignedOfficer.phone,
+            employeeId: assignedOfficer.employeeId,
+          }
+        : null,
+    });
+
   } catch (error) {
     console.error("Create grievance error:", error);
-    res
-      .status(500)
-      .json({ message: "Error creating grievance", error: error.message });
+    res.status(500).json({ message: "Error creating grievance", error: error.message });
   }
 };
 
@@ -63,20 +90,18 @@ exports.getGrievances = async (req, res) => {
   }
 };
 
+// GET BY DEPARTMENT
 exports.getByDepartment = async (req, res) => {
   try {
     const department = req.params.dept;
-
-    const grievances = await Grievance.find({
-      department,
-    }).sort({ priorityScore: -1 });
-
+    const grievances = await Grievance.find({ department }).sort({ priorityScore: -1 });
     res.json(grievances);
   } catch (error) {
     res.status(500).json({ message: "Error fetching grievances" });
   }
 };
 
+// UPDATE STATUS
 exports.updateStatus = async (req, res) => {
   try {
     const { status } = req.body;
@@ -88,7 +113,7 @@ exports.updateStatus = async (req, res) => {
     const grievance = await Grievance.findByIdAndUpdate(
       req.params.id,
       { status },
-      { new: true },
+      { new: true }
     );
 
     res.json(grievance);
@@ -96,32 +121,3 @@ exports.updateStatus = async (req, res) => {
     res.status(500).json({ message: "Error updating status" });
   }
 };
-
-const Officer = require("../models/Officer");
-
-// Inside createGrievance, after saving grievance:
-const officers = await Officer.find({ 
-  department: grievance.department, 
-  isActive: true 
-});
-
-let assignedOfficer = null;
-if (officers.length > 0) {
-  if (priorityLevel === "Critical") {
-    assignedOfficer = officers[0]; // Senior officer
-  } else {
-    assignedOfficer = officers[Math.floor(Math.random() * officers.length)];
-  }
-}
-
-// Add to grievance result
-res.status(201).json({ 
-  message: "Grievance created successfully", 
-  grievance,
-  assignedOfficer: assignedOfficer ? {
-    name: assignedOfficer.name,
-    email: assignedOfficer.email,
-    phone: assignedOfficer.phone,
-    employeeId: assignedOfficer.employeeId
-  } : null
-});
