@@ -2,6 +2,10 @@ from flask import Flask, request, jsonify
 import os
 from flask_cors import CORS
 import joblib
+import pandas as pd
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.naive_bayes import MultinomialNB
+from textblob import TextBlob
 from keywords import (
     URGENCY_KEYWORDS, 
     EMERGENCY_KEYWORDS, 
@@ -17,10 +21,6 @@ CORS(app, origins=[
     "https://smart-grievance-system-frontend.vercel.app",
     "https://smart-grievance-system-frontend-2i0zfyvo4.vercel.app"
 ])
-
-import pandas as pd
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.naive_bayes import MultinomialNB
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -45,6 +45,17 @@ def load_models():
         return v, d, p
 
 vectorizer, dept_model, priority_model = load_models()
+
+def correct_text(text):
+    """Auto-correct typos using TextBlob"""
+    try:
+        corrected = str(TextBlob(text).correct())
+        if corrected != text:
+            print(f"📝 Typo corrected: '{text}' → '{corrected}'")
+        return corrected
+    except Exception as e:
+        print(f"⚠️ Spell correction failed: {e} — using original text")
+        return text
 
 def calculate_priority(description, repeat_count=0):
     """
@@ -83,9 +94,6 @@ def calculate_priority(description, repeat_count=0):
     urgency_score = sum(
         score for keyword, score in URGENCY_KEYWORDS.items() if keyword in text
     )
-
-
-    
     total_score += min(urgency_score, 40)
     
     # Check time indicators (cap at 20)
@@ -106,7 +114,7 @@ def calculate_priority(description, repeat_count=0):
     )
     total_score += min(absence_score, 15)
     
-    # 🔥 ADD REPETITION SCORE (crowd-sourced priority)
+    # ADD REPETITION SCORE (crowd-sourced priority)
     repetition = repetition_score(repeat_count)
     total_score += repetition
     
@@ -131,12 +139,15 @@ def classify():
         except (TypeError, ValueError):
             repeat_count = 0
 
+        # ✅ Auto-correct typos before classification
+        corrected_desc = correct_text(desc)
+
         # Predict department using ML model
-        X_vec = vectorizer.transform([desc])
+        X_vec = vectorizer.transform([corrected_desc])
         department = dept_model.predict(X_vec)[0]
 
         # Calculate priority score
-        score = calculate_priority(desc, repeat_count)
+        score = calculate_priority(corrected_desc, repeat_count)
 
         # Force critical for mass complaints
         is_mass_complaint = repeat_count >= 30
@@ -163,7 +174,9 @@ def classify():
             "priorityScore": int(score),
             "repeatCount": repeat_count,
             "isMassComplaint": is_mass_complaint,
-            "reason": priority_reason
+            "reason": priority_reason,
+            "originalDescription": desc,
+            "correctedDescription": corrected_desc
         }
 
         print("Classification result:", result)
@@ -183,15 +196,12 @@ def health_check():
     """Health check endpoint"""
     return jsonify({
         "status": "healthy",
-        "message": "Civic Complaint Classifier API with Repetition-Based Priority is running"
+        "message": "Civic Complaint Classifier API with Typo Correction is running"
     })
 
 @app.route("/test-scenarios", methods=["GET"])
 def test_scenarios():
-    """
-    Test endpoint showing different priority scenarios.
-    Useful for demo/viva/presentation.
-    """
+    """Test endpoint showing different priority scenarios."""
     scenarios = [
         {
             "scenario": "Normal complaint",
@@ -216,6 +226,12 @@ def test_scenarios():
             "description": "Garbage not collected for weeks",
             "repeatCount": 55,
             "expected": "CRITICAL (50+ complaints = massive impact)"
+        },
+        {
+            "scenario": "Typo correction test",
+            "description": "Watr pipe leakge in my stret",
+            "repeatCount": 1,
+            "expected": "Corrected to: Water pipe leakage in my street"
         }
     ]
     
@@ -240,8 +256,6 @@ def test_scenarios():
 
 @app.route("/debug", methods=["GET"])
 def debug():
-    import os
-    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     files = {}
     for f in ["vectorizer.pkl", "dept_model.pkl", "priority_model.pkl"]:
         path = os.path.join(BASE_DIR, f)
@@ -250,13 +264,20 @@ def debug():
             "size": os.path.getsize(path) if os.path.exists(path) else 0,
             "path": path
         }
-    
-    # Try loading vectorizer
+
+    # Test in-memory vectorizer
     try:
-        vectorizer.transform(["test"])  # test in-memory vectorizer
+        vectorizer.transform(["test"])
         files["vectorizer_status"] = "OK - fitted (in memory)"
     except Exception as e:
         files["vectorizer_status"] = str(e)
+
+    # Test spell correction
+    try:
+        test_corrected = correct_text("Watr pipe leakge")
+        files["spell_correction"] = f"✅ Working — 'Watr pipe leakge' → '{test_corrected}'"
+    except Exception as e:
+        files["spell_correction"] = f"❌ Failed: {str(e)}"
 
     return jsonify({
         "base_dir": BASE_DIR,
