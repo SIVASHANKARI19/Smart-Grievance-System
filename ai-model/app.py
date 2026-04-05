@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 import os
+import random
 from flask_cors import CORS
 import joblib
 import pandas as pd
@@ -7,14 +8,15 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.naive_bayes import MultinomialNB
 from textblob import TextBlob
 from keywords import (
-    URGENCY_KEYWORDS, 
-    EMERGENCY_KEYWORDS, 
+    URGENCY_KEYWORDS,
+    EMERGENCY_KEYWORDS,
     COMPOUND_PHRASES,
     TIME_INDICATORS,
     SCALE_INDICATORS,
     ABSENCE_KEYWORDS,
     repetition_score
 )
+from officers import DEPARTMENT_OFFICERS
 
 app = Flask(__name__)
 CORS(app, origins=[
@@ -24,6 +26,9 @@ CORS(app, origins=[
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
+# ─────────────────────────────────────────
+# MODEL LOADING / AUTO RETRAINING
+# ─────────────────────────────────────────
 def load_models():
     try:
         v = joblib.load(os.path.join(BASE_DIR, "vectorizer.pkl"))
@@ -46,6 +51,9 @@ def load_models():
 
 vectorizer, dept_model, priority_model = load_models()
 
+# ─────────────────────────────────────────
+# TYPO CORRECTION
+# ─────────────────────────────────────────
 def correct_text(text):
     """Auto-correct typos using TextBlob"""
     try:
@@ -57,6 +65,39 @@ def correct_text(text):
         print(f"⚠️ Spell correction failed: {e} — using original text")
         return text
 
+# ─────────────────────────────────────────
+# OFFICER ASSIGNMENT
+# ─────────────────────────────────────────
+def assign_officer(department, priority):
+    """
+    Assign officer based on department and priority.
+    - Critical: always assign senior officer (first in list)
+    - High: assign second officer if available
+    - Others: random assignment
+    """
+    officers = DEPARTMENT_OFFICERS.get(department, [])
+
+    if not officers:
+        return {
+            "id": "UNASSIGNED",
+            "name": "Department Head",
+            "phone": "N/A",
+            "email": "N/A"
+        }
+
+    if priority == "Critical":
+        # Senior officer handles critical complaints
+        return officers[0]
+    elif priority == "High" and len(officers) > 1:
+        # Second officer handles high priority
+        return officers[1]
+    else:
+        # Random assignment for medium/low
+        return random.choice(officers)
+
+# ─────────────────────────────────────────
+# PRIORITY CALCULATION
+# ─────────────────────────────────────────
 def calculate_priority(description, repeat_count=0):
     """
     Calculate priority score based on:
@@ -67,59 +108,55 @@ def calculate_priority(description, repeat_count=0):
     5. Scale indicators (entire, widespread, etc.)
     6. Absence keywords (no, missing, etc.)
     7. Repetition score (how many people reported same issue)
-    
-    Args:
-        description (str): Complaint description text
-        repeat_count (int): Number of similar complaints registered
-        
-    Returns:
-        int: Total priority score
     """
     text = description.lower()
     total_score = 0
-    
-    # Check compound phrases first (they have higher priority)
+
+    # Check compound phrases first (higher priority)
     for phrase, score in COMPOUND_PHRASES.items():
         if phrase in text:
             total_score += score
-    
+
     # Check emergency keywords (take the maximum)
     emergency_score = max(
-        (score for keyword, score in EMERGENCY_KEYWORDS.items() if keyword in text), 
+        (score for keyword, score in EMERGENCY_KEYWORDS.items() if keyword in text),
         default=0
     )
     total_score += emergency_score
-    
+
     # Check urgency keywords (cap at 40)
     urgency_score = sum(
         score for keyword, score in URGENCY_KEYWORDS.items() if keyword in text
     )
     total_score += min(urgency_score, 40)
-    
+
     # Check time indicators (cap at 20)
     time_score = sum(
         score for keyword, score in TIME_INDICATORS.items() if keyword in text
     )
     total_score += min(time_score, 20)
-    
+
     # Check scale indicators (cap at 15)
     scale_score = sum(
         score for keyword, score in SCALE_INDICATORS.items() if keyword in text
     )
     total_score += min(scale_score, 15)
-    
+
     # Check absence keywords (cap at 15)
     absence_score = sum(
         score for keyword, score in ABSENCE_KEYWORDS.items() if keyword in text
     )
     total_score += min(absence_score, 15)
-    
-    # ADD REPETITION SCORE (crowd-sourced priority)
+
+    # Repetition score (crowd-sourced priority)
     repetition = repetition_score(repeat_count)
     total_score += repetition
-    
+
     return total_score
 
+# ─────────────────────────────────────────
+# ROUTES
+# ─────────────────────────────────────────
 @app.route("/classify", methods=["POST"])
 def classify():
     try:
@@ -139,10 +176,10 @@ def classify():
         except (TypeError, ValueError):
             repeat_count = 0
 
-        # ✅ Auto-correct typos before classification
+        # Auto-correct typos
         corrected_desc = correct_text(desc)
 
-        # Predict department using ML model
+        # Predict department
         X_vec = vectorizer.transform([corrected_desc])
         department = dept_model.predict(X_vec)[0]
 
@@ -168,6 +205,9 @@ def classify():
             priority = "Low"
             priority_reason = "Routine complaint"
 
+        # Assign officer
+        officer = assign_officer(str(department), priority)
+
         result = {
             "department": str(department),
             "priority": priority,
@@ -176,7 +216,13 @@ def classify():
             "isMassComplaint": is_mass_complaint,
             "reason": priority_reason,
             "originalDescription": desc,
-            "correctedDescription": corrected_desc
+            "correctedDescription": corrected_desc,
+            "assignedOfficer": {
+                "id": officer["id"],
+                "name": officer["name"],
+                "phone": officer["phone"],
+                "email": officer["email"]
+            }
         }
 
         print("Classification result:", result)
@@ -191,17 +237,25 @@ def classify():
             "details": str(e)
         }), 500
 
+
 @app.route("/health", methods=["GET"])
 def health_check():
-    """Health check endpoint"""
     return jsonify({
         "status": "healthy",
-        "message": "Civic Complaint Classifier API with Typo Correction is running"
+        "message": "Civic Complaint Classifier API with Typo Correction & Officer Assignment is running"
     })
+
+
+@app.route("/officers", methods=["GET"])
+def get_officers():
+    """Get all officers by department"""
+    return jsonify({
+        "departments": DEPARTMENT_OFFICERS
+    })
+
 
 @app.route("/test-scenarios", methods=["GET"])
 def test_scenarios():
-    """Test endpoint showing different priority scenarios."""
     scenarios = [
         {
             "scenario": "Normal complaint",
@@ -234,7 +288,7 @@ def test_scenarios():
             "expected": "Corrected to: Water pipe leakage in my street"
         }
     ]
-    
+
     return jsonify({
         "message": "Priority calculation test scenarios",
         "scenarios": scenarios,
@@ -245,14 +299,13 @@ def test_scenarios():
             "medium": "Score >= 20",
             "low": "Score < 20"
         },
-        "repetition_scoring": {
-            "50+ complaints": "50 points (Massive public impact)",
-            "30-49 complaints": "35 points (Major area-wide issue)",
-            "15-29 complaints": "20 points (Significant neighborhood problem)",
-            "5-14 complaints": "10 points (Multiple reports)",
-            "1-4 complaints": "0 points (Individual issue)"
+        "officer_assignment": {
+            "Critical": "Senior officer (first in list)",
+            "High": "Second officer",
+            "Medium/Low": "Random assignment"
         }
     })
+
 
 @app.route("/debug", methods=["GET"])
 def debug():
@@ -279,10 +332,18 @@ def debug():
     except Exception as e:
         files["spell_correction"] = f"❌ Failed: {str(e)}"
 
+    # Test officer assignment
+    try:
+        test_officer = assign_officer("Water", "Critical")
+        files["officer_assignment"] = f"✅ Working — Critical Water → {test_officer['name']}"
+    except Exception as e:
+        files["officer_assignment"] = f"❌ Failed: {str(e)}"
+
     return jsonify({
         "base_dir": BASE_DIR,
         "files": files
     })
+
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
