@@ -214,6 +214,33 @@ def test_scenarios():
         }
     })
 
+@app.route("/debug", methods=["GET"])
+def debug():
+    import os
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    files = {}
+    for f in ["vectorizer.pkl", "dept_model.pkl", "priority_model.pkl"]:
+        path = os.path.join(BASE_DIR, f)
+        files[f] = {
+            "exists": os.path.exists(path),
+            "size": os.path.getsize(path) if os.path.exists(path) else 0,
+            "path": path
+        }
+    
+    # Try loading vectorizer
+    try:
+        import joblib
+        v = joblib.load(os.path.join(BASE_DIR, "vectorizer.pkl"))
+        v.transform(["test"])
+        files["vectorizer_status"] = "OK - fitted"
+    except Exception as e:
+        files["vectorizer_status"] = str(e)
+
+    return jsonify({
+        "base_dir": BASE_DIR,
+        "files": files
+    })
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
